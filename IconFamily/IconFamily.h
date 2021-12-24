@@ -39,12 +39,27 @@
 // method.
 
 enum {
-	kIconServices512RetinaPixelDataARGB = 'ic10', /* non-premultiplied 1024x1024 ARGB bitmap*/
+    kIconServices512RetinaPixelDataARGB = 'ic10', /* non-premultiplied 1024x1024 ARGB bitmap*/
     kIconServices256RetinaPixelDataARGB = 'ic14', /* non-premultiplied 512x512 ARGB bitmap*/
     kIconServices128RetinaPixelDataARGB = 'ic13', /* non-premultiplied 256x256 ARGB bitmap*/
     kIconServices32RetinaPixelDataARGB  = 'ic12', /* non-premultiplied 64x64 ARGB bitmap*/
-    kIconServices16RetinaPixelDataARGB  = 'ic11'  /* non-premultiplied 32x32 ARGB bitmap*/
+    kIconServices16RetinaPixelDataARGB  = 'ic11', /* non-premultiplied 32x32 ARGB bitmap*/
+    kIconServices18RetinaPixelDataARGB  = 'icsB', /* non-premultiplied 18x18 ARGB bitmap*/
+    kIconServices36PixelDataARGB        = 'icsd', /* non-premultiplied 36x36 ARGB bitmap (non-Retina) */
+    kIconServices18PixelDataARGB        = 'icsb'  /* non-premultiplied 18x18 ARGB bitmap (non-Retina) */
 };
+
+typedef struct OneIconElementType {
+    int iSize;
+    OSType iElementType;
+    OSType iRetina;
+    OSType i32BitData;
+    OSType i8BitMask;
+    OSType i8BitData;
+    OSType i1BitMask;
+} OneIconElementType;
+
+extern OneIconElementType IconElementTypeDB[];
 
 @interface IconFamily : NSObject <NSPasteboardReading, NSPasteboardWriting>
 {
@@ -99,6 +114,11 @@ enum {
 
 - (BOOL) writeToFile:(NSString*)path;
 
+// Calculate icon element type from image size
+
+- (OSType) getImageElementType:(NSBitmapImageRep*)bitmapImageRep;
+- (OSType) getImageElementType:(int)size pixels:(int)pixels;
+
 // Sets the image data for one of the icon family's elements from an
 // NSBitmapImageRep.  The "elementType" parameter must be one of the icon
 // family element types listed below, and the format of the "bitmapImageRep"
@@ -106,18 +126,18 @@ enum {
 // the elementType, the bitmapImageRep must also be non-planar and have 8 bits
 // per sample.
 //
-//  elementType                       dimensions   format
-//  -------------------               ----------   ---------------------------------------
+//  elementType                       dimensions  format
+//  -------------------               ----------  ---------------------------------------
 //  kIconServices512PixelDataARGB     512 x 512   32-bit RGBA, 32-bit RGB, or 24-bit RGB
 //  kIconServices256PixelDataARGB     256 x 256   32-bit RGBA, 32-bit RGB, or 24-bit RGB
 //  kThumbnail32BitData               128 x 128   32-bit RGBA, 32-bit RGB, or 24-bit RGB
 //  kThumbnail8BitMask                128 x 128   32-bit RGBA or 8-bit intensity
-//  kLarge32BitData                   32 x  32   32-bit RGBA, 32-bit RGB, or 24-bit RGB
-//  kLarge8BitMask                    32 x  32   32-bit RGBA or 8-bit intensity
-//  kLarge1BitMask                    32 x  32   32-bit RGBA, 8-bit intensity, or 1-bit
-//  kSmall32BitData                   16 x  16   32-bit RGBA, 32-bit RGB, or 24-bit RGB
-//  kSmall8BitMask                    16 x  16   32-bit RGBA or 8-bit intensity
-//  kSmall1BitMask                    16 x  16   32-bit RGBA, 8-bit intensity, or 1-bit
+//  kLarge32BitData                   32 x  32    32-bit RGBA, 32-bit RGB, or 24-bit RGB
+//  kLarge8BitMask                    32 x  32    32-bit RGBA or 8-bit intensity
+//  kLarge1BitMask                    32 x  32    32-bit RGBA, 8-bit intensity, or 1-bit
+//  kSmall32BitData                   16 x  16    32-bit RGBA, 32-bit RGB, or 24-bit RGB
+//  kSmall8BitMask                    16 x  16    32-bit RGBA or 8-bit intensity
+//  kSmall1BitMask                    16 x  16    32-bit RGBA, 8-bit intensity, or 1-bit
 //
 // When an RGBA image is supplied to set a "Mask" element, the mask data is
 // taken from the image's alpha channel.
@@ -126,15 +146,15 @@ enum {
 //       for some as yet unknown reason.  (If you then assign the icon family
 //       as a file's custom icon using -setAsCustomIconForFile:, the custom
 //       icon doesn't appear for the file in the Finder.)  However, both
-//	 custom icon display and mouse-click hit-testing in the Finder seem to
+//       custom icon display and mouse-click hit-testing in the Finder seem to
 //       work fine when we only set the other four elements (thus keeping the
 //       existing kLarge1BitMask from the valid icon family from which we
 //       initialized the IconFamily via -initWithContentsOfFile:, since
 //       IconFamily's -init method is currently broken...), so it seems safe
 //       to just leave the kLarge1BitMask alone.
 
-- (BOOL) setIconFamilyElement:(OSType)elementType
-           fromBitmapImageRep:(NSBitmapImageRep*)bitmapImageRep;
+- (BOOL) setIconFamilyElement:(OSType)elementType fromBitmapImageRep:(NSBitmapImageRep*)bitmapImageRep;
+- (BOOL) setIconFamilyElement:(NSBitmapImageRep*)bitmapImageRep;
 
 // Gets the image data for one of the icon family's elements as a new, 32-bit
 // RGBA NSBitmapImageRep.  The specified elementType should be one of

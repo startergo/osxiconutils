@@ -1,7 +1,7 @@
 /*
-    icns2image - Mac command line program to convert an Apple icns file to a standard image format
+    icns2icns - Mac command line program to process an Apple icns file
 
-    Copyright (c) 2003-2017, Sveinbjorn Thordarson <sveinbjornt@gmail.com>
+    Copyright (c) 2021, Joe van Tunen <joevt@shaw.ca>
     All rights reserved.
 
     Redistribution and use in source and binary forms, with or without modification,
@@ -32,24 +32,22 @@
 
 #import <Cocoa/Cocoa.h>
 #import "CLI.h"
+#import "IconFamily.h"
 
 static const char optstring[] = "vht:r:";
 
 static struct option long_options[] = {
     {"version",     no_argument,        0,  'v'},
     {"help",        no_argument,        0,  'h'},
-    {"type",        required_argument,  0,  't'},
-    {"rep",         required_argument,  0,  'r'},
     {0,             0,                  0,    0}
 };
 
 static NSUInteger ImageTypeForSuffix(NSString *suffix);
 static void PrintHelp(void);
+static int saveImage(NSBitmapImageRep *brep, OSType elementType, NSString *suffix, NSString *destPath, int ndx);
+
 
 int main(int argc, const char * argv[]) { @autoreleasepool {
-
-    NSString *typeStr = nil;
-    NSUInteger representation = 0;
 
     int optch;
     int long_index = 0;
@@ -58,26 +56,7 @@ int main(int argc, const char * argv[]) { @autoreleasepool {
     while ((optch = getopt_long(argc, (char *const *)argv, optstring, long_options, &long_index)) != -1) {
         switch (optch) {
 
-            // specify icon representation size to convert to image, e.g. 128
-            case 'r':
-            {
-                NSString *repStr = @(optarg);
-                int num;
-                BOOL isInteger = [[NSScanner scannerWithString:repStr] scanInt:&num];
-                if (isInteger) {
-                    representation = [repStr intValue];
-                } else {
-                    NSPrintErr(@"Invalid representation size: '%@'", repStr);
-                    exit(EX_USAGE);
-                }
-            }
-                break;
-
             // image format
-            case 't':
-                typeStr = @(optarg);
-                break;
-
             // print version
             case 'v':
                 PrintProgramVersion();
@@ -117,86 +96,55 @@ int main(int argc, const char * argv[]) { @autoreleasepool {
     }
 
     // read icon from source file
-    NSImage *img = [[NSImage alloc] initWithContentsOfFile:srcPath];
+    IconFamily *icon = [IconFamily iconFamilyWithContentsOfFile:srcPath];
+    NSImage *img = [icon imageWithAllReps];
     NSArray *reps = [img representations];
     if (img == nil || [reps count] == 0) {
         NSPrintErr(@"Error reading icon from file");
         exit(EXIT_FAILURE);
     }
 
-    NSBitmapImageRep *wantedRep = nil;
-    NSBitmapImageRep *largestRep = nil;
+    // create icon
+    IconFamily *iconFam = [[IconFamily alloc] init];
+    if (iconFam == nil)  {
+        NSPrintErr(@"Error creating icon");
+        return EXIT_FAILURE;
+    }
 
-    // Find the representation we want - default to largest
-    // Choose not-retina version over retina version
+    int ndx = 0;
     for (NSImageRep *rep in reps) {
+        //NSPrintErr(@"%d)", ndx);
+
         if (![rep isKindOfClass:[NSBitmapImageRep class]]) {
             continue;
         }
         NSBitmapImageRep *brep = (NSBitmapImageRep *)rep;
-        if (!largestRep || [brep pixelsWide] > [largestRep pixelsWide] || ([brep pixelsWide] == [largestRep pixelsWide] && [brep size].width > [largestRep size].width )) {
-            largestRep = brep;
+        //if ([brep pixelsWide] == [brep size].width)
+        {
+            if (![iconFam setIconFamilyElement:brep])
+                NSPrintErr(@"Could not add rep to icon");
         }
-        if (representation && [brep pixelsWide] == representation && (wantedRep == nil || [brep size].width > [wantedRep size].width)) {
-            wantedRep = brep;
-        }
+
+        /*
+        OSType elementType = [iconFam getImageElementType:brep];
+        saveImage(brep, elementType, @"tiff", destPath, ndx);
+        saveImage(brep, elementType, @"png", destPath, ndx);
+
+        NSPrintErr(@"type:%@ rep:%@ class:%@", NSFileTypeForHFSTypeCode(elementType), rep, [rep class]);
+
+        NSString *destPath2 = [NSString stringWithFormat:@"%@_%d_%@_%dx%d.icns", destPath, ndx, NSFileTypeForHFSTypeCode(elementType), (int)[brep pixelsWide], (int)[brep pixelsHigh] ];
+        BOOL res = [iconFam writeToFile:destPath2];
+         */
+
+        ndx++;
     }
 
-    if (representation && wantedRep == nil) {
-        NSPrintErr(@"Representation '%dx%d' not found in file, using largest representation (%dx%d) instead.",
-                   representation, representation, [largestRep pixelsWide], [largestRep pixelsHigh]);
-    }
-    if (wantedRep == nil) {
-        wantedRep = largestRep;
-    }
+    BOOL res = [iconFam writeToFile:destPath];
 
-    // determine image output format
-    BOOL imgTypeSpecifiedWithFlag = NO;
-    NSUInteger imgType = NSTIFFFileType;
-    if (typeStr) {
-        imgType = ImageTypeForSuffix(typeStr);
-        if (imgType == -1) {
-            NSPrintErr(@"Invalid image type: %@", typeStr);
-        }
-        imgTypeSpecifiedWithFlag = YES;
-    }
-    if (!imgTypeSpecifiedWithFlag) {
-        NSString *suffix = [[destPath lastPathComponent] pathExtension];
-        imgType = ImageTypeForSuffix(suffix);
-        if (imgType == -1) {
-            NSPrintErr(@"Unable to determine image type from suffix '%@', falling back to TIFF", suffix);
-            imgType = NSTIFFFileType;
-        }
-    }
-
-    NSDictionary *prop = @{ NSImageCompressionFactor : @(1.0f) };
-
-    NSData *data;
-
-    // convert to TIFF first because otherwise Catalina volume icon produces incorrect result for png and I don't know why
-    NSData *data0 = [wantedRep representationUsingType:NSTIFFFileType properties:prop];
-    if (data0 == nil) {
-        NSPrintErr(@"Error creating image data for type %d", NSTIFFFileType);
-        exit(EX_DATAERR);
-    }
-
-    if (imgType != NSTIFFFileType) {
-        // convert to wanted type
-        NSBitmapImageRep *brep2 = [[NSBitmapImageRep alloc] initWithData: data0];
-        data = [brep2 representationUsingType:imgType properties:prop];
-    }
-    else {
-        data = data0;
-    }
-
-    if (data == nil) {
-        NSPrintErr(@"Error creating image data for type %d", imgType);
-        exit(EX_DATAERR);
-    }
-
-    if ([data writeToFile:destPath atomically:YES] == NO) {
-        NSPrintErr(@"Error writing image to destination");
-        exit(EX_IOERR);
+    // make sure we were successful
+    if (res == NO || ![[NSFileManager defaultManager] fileExistsAtPath:destPath]) {
+        NSPrintErr(@"Failed to create icns file at path '%@'", destPath);
+        return EXIT_FAILURE;
     }
 
     return EXIT_SUCCESS;
@@ -221,5 +169,39 @@ static NSUInteger ImageTypeForSuffix(NSString *suffix) {
 }
 
 static void PrintHelp(void) {
-    NSPrintErr(@"usage: icns2image src dest");
+    NSPrintErr(@"usage: icns2icns src dest");
+}
+
+static int saveImage(NSBitmapImageRep *brep, OSType elementType, NSString *suffix, NSString *destPath, int ndx)
+{
+    NSInteger imgType = ImageTypeForSuffix(suffix);
+    if (imgType == -1) {
+        NSPrintErr(@"Unable to determine image type from suffix '%@'", suffix);
+        return(1);
+    }
+
+    NSDictionary *prop = @{ NSImageCompressionFactor : @(1.0f) };
+
+    // convert to TIFF first (converting to png first causes a problem)
+    NSData *data0 = [brep representationUsingType:NSTIFFFileType properties:prop];
+    if (data0 == nil) {
+        NSPrintErr(@"Error creating image data for type %d", NSTIFFFileType);
+        return(EX_DATAERR);
+    }
+
+    // convert to wanted type
+    NSBitmapImageRep *brep2 = [[NSBitmapImageRep alloc] initWithData: data0];
+    NSData *data = [brep2 representationUsingType:imgType properties:prop];
+    if (data == nil) {
+        NSPrintErr(@"Error creating image data for type %d", imgType);
+        return(EX_DATAERR);
+    }
+
+    NSString *destPath2 = [NSString stringWithFormat:@"%@_%d_%@_%dx%d.%@", destPath, ndx, NSFileTypeForHFSTypeCode(elementType), (int)[brep pixelsWide], (int)[brep pixelsHigh], suffix ];
+    if ([data writeToFile:destPath2 atomically:YES] == NO) {
+        NSPrintErr(@"Error writing image to destination");
+        return(EX_IOERR);
+    }
+
+    return(EX_OK);
 }

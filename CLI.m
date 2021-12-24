@@ -57,21 +57,21 @@ void PrintProgramVersion(void) {
 // print NSString to stdout
 void NSPrint(NSString *format, ...) {
     va_list args;
-    
+
     va_start(args, format);
     NSString *string  = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
-    
+
     fprintf(stdout, "%s\n", [string UTF8String]);
 }
 
 // print NSString to stderr
 void NSPrintErr(NSString *format, ...) {
     va_list args;
-    
+
     va_start(args, format);
     NSString *string  = [[NSString alloc] initWithFormat:format arguments:args];
     va_end(args);
-    
+
     fprintf(stderr, "%s\n", [string UTF8String]);
 }

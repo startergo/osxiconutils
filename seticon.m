@@ -47,7 +47,7 @@ int main (int argc, const char * argv[]) { @autoreleasepool {
         NSPrintErr(@"usage: seticon iconFile [files ...]");
         return EX_USAGE;
     }
-    
+
     NSString *iconFilePath = [args[0] stringByExpandingTildeInPath];
 
     // read icon
@@ -58,7 +58,7 @@ int main (int argc, const char * argv[]) { @autoreleasepool {
     }
 
     [args removeObjectAtIndex:0];
-    
+
     // all remaining arguments should be the files we set the icon of
     for (NSString *path in args) {
         BOOL isDir;
@@ -68,6 +68,6 @@ int main (int argc, const char * argv[]) { @autoreleasepool {
             [icon setAsCustomIconForFile:path];
         }
     }
-    
+
     return EX_OK;
 }}

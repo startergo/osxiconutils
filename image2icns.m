@@ -63,7 +63,7 @@ int main (int argc, const char * argv[]) { @autoreleasepool {
         NSPrintErr(@"Error generating icon data from image");
         return EXIT_FAILURE;
     }
-    
+
     BOOL res = [iconFam writeToFile:destPath];
 
     // make sure we were successful
@@ -71,6 +71,6 @@ int main (int argc, const char * argv[]) { @autoreleasepool {
         NSPrintErr(@"Failed to create icns file at path '%@'", destPath);
         return EXIT_FAILURE;
     }
-    
+
     return EXIT_SUCCESS;
 }}

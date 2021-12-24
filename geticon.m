@@ -36,11 +36,11 @@
 #import <sysexits.h>
 
 int main(int argc, const char * argv[]) { @autoreleasepool {
-    
+
     //NSApplication *app = [NSApplication sharedApplication]; // establish connection to window server
-    
+
     NSMutableArray *args = ReadRemainingArgs(argc, argv);
-    
+
     // check if we have the correct number of arguments
     if ([args count] != 2) {
         NSPrintErr(@"usage: geticon src out.icns");
@@ -49,14 +49,14 @@ int main(int argc, const char * argv[]) { @autoreleasepool {
 
     NSString *srcFile = args[0];
     NSString *outFile = args[1];
-    
+
     IconFamily *iconFamily = [IconFamily iconFamilyWithIconOfFile:srcFile];
     BOOL success = [iconFamily writeToFile:outFile];
-    
+
     if (!success || ![[NSFileManager defaultManager] fileExistsAtPath:outFile]) {
         NSPrintErr(@"Failed to create icns file at path '%@'", outFile);
         return EXIT_FAILURE;
     }
-    
+
     return EXIT_SUCCESS;
 }}

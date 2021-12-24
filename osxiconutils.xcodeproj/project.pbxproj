@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		63820B4023FBB96E00F29274 /* CLI.m in Sources */ = {isa = PBXBuildFile; fileRef = F4CFA1341F7C250100470945 /* CLI.m */; };
+		63820B4323FBB96E00F29274 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CFA1221F69C18E00470945 /* Accelerate.framework */; };
+		63820B4423FBB96E00F29274 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4807A700FCF606C00A25839 /* Cocoa.framework */; };
+		63820B4823FBB9F700F29274 /* icns2icns.m in Sources */ = {isa = PBXBuildFile; fileRef = 63820B3D23FBB73800F29274 /* icns2icns.m */; };
+		63820B4923FBBFC600F29274 /* IconFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = F4807A500FCF5F3200A25839 /* IconFamily.m */; };
+		63820B4A23FBBFD300F29274 /* NSString+CarbonFSRefCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4807A520FCF5F3200A25839 /* NSString+CarbonFSRefCreation.m */; };
 		F4807A720FCF606C00A25839 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4807A700FCF606C00A25839 /* Cocoa.framework */; };
 		F4807B480FCF60CE00A25839 /* IconFamily.m in Sources */ = {isa = PBXBuildFile; fileRef = F4807A500FCF5F3200A25839 /* IconFamily.m */; };
 		F4807B490FCF60CE00A25839 /* NSString+CarbonFSRefCreation.m in Sources */ = {isa = PBXBuildFile; fileRef = F4807A520FCF5F3200A25839 /* NSString+CarbonFSRefCreation.m */; };
@@ -32,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		63820B3D23FBB73800F29274 /* icns2icns.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = icns2icns.m; sourceTree = "<group>"; };
+		63820B4723FBB96E00F29274 /* icns2icns */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = icns2icns; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4807A490FCF5F3200A25839 /* icns2image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = icns2image.m; sourceTree = "<group>"; };
 		F4807A4B0FCF5F3200A25839 /* geticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = geticon.m; sourceTree = "<group>"; };
 		F4807A4D0FCF5F3200A25839 /* seticon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = seticon.m; sourceTree = "<group>"; };
@@ -61,6 +69,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		63820B4223FBB96E00F29274 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63820B4323FBB96E00F29274 /* Accelerate.framework in Frameworks */,
+				63820B4423FBB96E00F29274 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4807A580FCF5F5700A25839 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,6 +117,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		63820B3C23FBB6B600F29274 /* icns2icns */ = {
+			isa = PBXGroup;
+			children = (
+				63820B3D23FBB73800F29274 /* icns2icns.m */,
+			);
+			name = icns2icns;
+			sourceTree = "<group>";
+		};
 		F4807A340FCF5F1C00A25839 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +134,7 @@
 				F4CFA1421F7C263900470945 /* man2html.sh */,
 				F4CFA1431F7C263900470945 /* upload_man_html.sh */,
 				F4CFA13D1F7C25FC00470945 /* icns2image */,
+				63820B3C23FBB6B600F29274 /* icns2icns */,
 				F4CFA13E1F7C260200470945 /* image2icns */,
 				F4CFA13F1F7C260800470945 /* geticon */,
 				F4CFA1401F7C260F00470945 /* seticon */,
@@ -136,6 +162,7 @@
 				F4807B500FCF60DC00A25839 /* seticon */,
 				F4807B5E0FCF610100A25839 /* geticon */,
 				F4E77EE40FCF64A300CAF741 /* icns2image */,
+				63820B4723FBB96E00F29274 /* icns2icns */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -199,6 +226,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		63820B3E23FBB96E00F29274 /* icns2icns */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63820B4523FBB96E00F29274 /* Build configuration list for PBXNativeTarget "icns2icns" */;
+			buildPhases = (
+				63820B3F23FBB96E00F29274 /* Sources */,
+				63820B4223FBB96E00F29274 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = icns2icns;
+			productName = icns2image;
+			productReference = 63820B4723FBB96E00F29274 /* icns2icns */;
+			productType = "com.apple.product-type.tool";
+		};
 		F4807A590FCF5F5700A25839 /* image2icns */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F4807A5F0FCF5F5700A25839 /* Build configuration list for PBXNativeTarget "image2icns" */;
@@ -269,13 +312,14 @@
 		F4807A360FCF5F1C00A25839 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1130;
 			};
 			buildConfigurationList = F4807A390FCF5F1C00A25839 /* Build configuration list for PBXProject "osxiconutils" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = F4807A340FCF5F1C00A25839;
@@ -284,6 +328,7 @@
 			projectRoot = "";
 			targets = (
 				F4E77EE30FCF64A300CAF741 /* icns2image */,
+				63820B3E23FBB96E00F29274 /* icns2icns */,
 				F4807A590FCF5F5700A25839 /* image2icns */,
 				F4807B4F0FCF60DC00A25839 /* seticon */,
 				F4807B5D0FCF610100A25839 /* geticon */,
@@ -292,6 +337,17 @@
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		63820B3F23FBB96E00F29274 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63820B4A23FBBFD300F29274 /* NSString+CarbonFSRefCreation.m in Sources */,
+				63820B4023FBB96E00F29274 /* CLI.m in Sources */,
+				63820B4823FBB9F700F29274 /* icns2icns.m in Sources */,
+				63820B4923FBBFC600F29274 /* IconFamily.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F4807A570FCF5F5700A25839 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,33 +393,36 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		F4807A370FCF5F1C00A25839 /* Release */ = {
+		63820B4623FBB96E00F29274 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		63820B4B23FBF0A500F29274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = NO;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_CW_ASM_SYNTAX = NO;
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_UNROLL_LOOPS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -371,24 +430,23 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MACOSX_DEPLOYMENT_TARGET_i386 = "";
-				MACOSX_DEPLOYMENT_TARGET_ppc = "";
-				SCAN_ALL_SOURCE_FILES_FOR_INCLUDES = NO;
-				SDKROOT = macosx;
 			};
-			name = Release;
+			name = Debug;
 		};
-		F4807A5D0FCF5F5700A25839 /* Release */ = {
+		63820B4C23FBF0A500F29274 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = s;
+				PRODUCT_NAME = icns2image;
+			};
+			name = Debug;
+		};
+		63820B4D23FBF0A500F29274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -396,21 +454,15 @@
 					AppKit,
 				);
 				PRODUCT_NAME = image2icns;
-				STRIP_INSTALLED_PRODUCT = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		F4807B520FCF60DD00A25839 /* Release */ = {
+		63820B4E23FBF0A500F29274 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -418,22 +470,15 @@
 					AppKit,
 				);
 				PRODUCT_NAME = seticon;
-				STRIP_INSTALLED_PRODUCT = YES;
-				ZERO_LINK = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
-		F4807B600FCF610200A25839 /* Release */ = {
+		63820B4F23FBF0A500F29274 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
-				INSTALL_PATH = "";
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -441,8 +486,93 @@
 					AppKit,
 				);
 				PRODUCT_NAME = geticon;
-				STRIP_INSTALLED_PRODUCT = YES;
-				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		63820B5023FBF0A500F29274 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F4807A370FCF5F1C00A25839 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+			};
+			name = Release;
+		};
+		F4807A5D0FCF5F5700A25839 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = image2icns;
+			};
+			name = Release;
+		};
+		F4807B520FCF60DD00A25839 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = seticon;
+			};
+			name = Release;
+		};
+		F4807B600FCF610200A25839 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PRODUCT_NAME = geticon;
 			};
 			name = Release;
 		};
@@ -450,27 +580,27 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PRECOMPILE_PREFIX_HEADER = NO;
-				GCC_PREFIX_HEADER = "";
-				INSTALL_PATH = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = icns2image;
-				SKIP_INSTALL = YES;
-				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		63820B4523FBB96E00F29274 /* Build configuration list for PBXNativeTarget "icns2icns" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				63820B4623FBB96E00F29274 /* Release */,
+				63820B5023FBF0A500F29274 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F4807A390FCF5F1C00A25839 /* Build configuration list for PBXProject "osxiconutils" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4807A370FCF5F1C00A25839 /* Release */,
+				63820B4B23FBF0A500F29274 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -479,6 +609,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4807A5D0FCF5F5700A25839 /* Release */,
+				63820B4D23FBF0A500F29274 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -487,6 +618,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4807B520FCF60DD00A25839 /* Release */,
+				63820B4E23FBF0A500F29274 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -495,6 +627,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4807B600FCF610200A25839 /* Release */,
+				63820B4F23FBF0A500F29274 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -503,6 +636,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4E77EE60FCF64A300CAF741 /* Release */,
+				63820B4C23FBF0A500F29274 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
