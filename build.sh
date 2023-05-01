@@ -24,6 +24,16 @@ strip -x "${BUILD_DIR}/icns2image"
 
 xcodebuild  -parallelizeTargets \
 -project "${XCODE_PROJ}" \
+-target "icns2icns" \
+-configuration "Release" \
+CONFIGURATION_BUILD_DIR="${BUILD_DIR}" \
+clean \
+build
+
+strip -x "${BUILD_DIR}/icns2icns"
+
+xcodebuild  -parallelizeTargets \
+-project "${XCODE_PROJ}" \
 -target "image2icns" \
 -configuration "Release" \
 CONFIGURATION_BUILD_DIR="${BUILD_DIR}" \
